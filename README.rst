@@ -1,6 +1,6 @@
-==================
-requests-robotstxt
-==================
+====================
+requests-testadapter
+====================
 
 .. image:: https://secure.travis-ci.org/ambv/requests-testadapter.png
   :target: https://secure.travis-ci.org/ambv/requests-testadapter
