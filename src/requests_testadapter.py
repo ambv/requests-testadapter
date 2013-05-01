@@ -80,10 +80,13 @@ class TestAdapter(requests.adapters.HTTPAdapter):
         self.headers = headers or {}
         super(TestAdapter, self).__init__()
 
-    def send(self, request, *args, **kwargs):
+    def send(self, request, stream=False, timeout=None,
+             verify=True, cert=None, proxies=None):
         resp = Resp(self.stream, self.status, self.headers)
         r = self.build_response(request, resp)
-        r.content
+        if not stream:
+            # force prefetching content unless streaming in use
+            r.content
         return r
 
 

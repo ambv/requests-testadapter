@@ -121,6 +121,10 @@ Change Log
 * introduced ``TestSession`` to make adapter order predictable in ``requests``
   1.2 and older
 
+* ``TestAdapter`` doesn't prefetch ``response.content`` anymore if
+  ``stream=True`` is passed to a request. This lets the user read
+  ``response.raw`` herself.
+  
 0.1.0
 ~~~~~
 
