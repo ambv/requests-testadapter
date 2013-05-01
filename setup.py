@@ -41,7 +41,7 @@ with codecs.open(
 
 setup (
     name = 'requests-testadapter',
-    version = '0.1.0',
+    version = '0.2.0',
     author = 'Łukasz Langa',
     author_email = 'lukasz@langa.pl',
     description = "Provides an adapter for mocking HTTP requests for unit test"

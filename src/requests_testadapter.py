@@ -35,6 +35,7 @@ from __future__ import unicode_literals
 
 from six import BytesIO
 
+from requests.compat import OrderedDict
 import requests.adapters
 import requests.status_codes
 
@@ -84,3 +85,23 @@ class TestAdapter(requests.adapters.HTTPAdapter):
         r = self.build_response(request, resp)
         r.content
         return r
+
+
+class TestSession(requests.Session):
+    """Just like requests.Session but solves an issue with adapter ordering
+       for requests 1.2.0 and lower. It also doesn't connect the default
+       handlers for HTTP and HTTPS so you will be notified if your requests
+       unintentionally try to reach external websites in your unit tests."""
+
+    def __init__(self):
+        super(TestSession, self).__init__()
+        self.adapters = OrderedDict()
+
+    def mount(self, prefix, adapter):
+        """Registers a connection adapter to a prefix.
+
+        Adapters are sorted in descending order by key length."""
+        self.adapters[prefix] = adapter
+        keys_to_move = [k for k in self.adapters if len(k) < len(prefix)]
+        for key in keys_to_move:
+            self.adapters[key] = self.adapters.pop(key)

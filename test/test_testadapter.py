@@ -33,7 +33,7 @@ except ImportError:
 
 
 import requests
-from requests_testadapter import TestAdapter
+from requests_testadapter import TestAdapter, TestSession
 
 
 class TestRequestsTestAdapter(unittest.TestCase):
@@ -47,6 +47,39 @@ class TestRequestsTestAdapter(unittest.TestCase):
         r = s.get('http://testbasic.com/')
         self.assertEqual(r.status_code, 200)
         self.assertEqual(r.content, mocked_content)
+
+    def testSession(self):
+        s = TestSession()
+        self.assertEqual([], list(s.adapters))
+        s.mount('http://git', TestAdapter(b'git'))
+        s.mount('http://github', TestAdapter(b'github'))
+        s.mount('http://github.com', TestAdapter(b'github.com'))
+        s.mount('http://github.com/about/', TestAdapter(b'github.com/about'))
+        order = [
+            'http://github.com/about/',
+            'http://github.com',
+            'http://github',
+            'http://git',
+        ]
+        self.assertEqual(order, list(s.adapters))
+        s.mount('http://gittip', TestAdapter(b'gittip'))
+        s.mount('http://gittip.com', TestAdapter(b'gittip.com'))
+        s.mount('http://gittip.com/about/', TestAdapter(b'gittip.com/about'))
+        order = [
+            'http://github.com/about/',
+            'http://gittip.com/about/',
+            'http://github.com',
+            'http://gittip.com',
+            'http://github',
+            'http://gittip',
+            'http://git',
+        ]
+        self.assertEqual(order, list(s.adapters))
+        s2 = requests.Session()
+        s2.adapters = {'http://': TestAdapter(b'http')}
+        s2.mount('https://', TestAdapter(b'https'))
+        self.assertTrue('http://' in s2.adapters)
+        self.assertTrue('https://' in s2.adapters)
 
 
 if __name__ == '__main__':
