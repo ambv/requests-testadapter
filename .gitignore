@@ -1,10 +1,41 @@
-# Python
+# Compiled Python scripts
 *.pyc
-*.egg-info/
-__pycache__/
+*.pyo
+__pycache__
 
-# Mac
+# Compiled Java classes
+*.class
+
+# Compiled C files
+*.a
+*.o
+
+# SQLite databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary or runtime files
+*.old
+*.bak
+*.swp
+*.swo
+*.swn
+*.local
+*.log
+*.pid
+*.cache
+*.orig
+*~
+.sass-cache
+
+# Python Sphinx, virtualenv and setuptools files
+/doc/_build
+/build
+/dist
+/.tox
+/.venv*
+*.egg-info
+
+# Mac OS X specific
 .DS_Store
-
-# Testing
-.tox/
