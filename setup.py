@@ -24,7 +24,7 @@
 import os
 import sys
 import codecs
-from setuptools import setup, find_packages
+from setuptools import setup
 
 PY3 = sys.version_info[0] == 3
 
@@ -41,7 +41,7 @@ with codecs.open(
 
 setup (
     name = 'requests-testadapter',
-    version = '0.2.0',
+    version = '0.3.0',
     author = 'Łukasz Langa',
     author_email = 'lukasz@langa.pl',
     description = "Provides an adapter for mocking HTTP requests for unit test"

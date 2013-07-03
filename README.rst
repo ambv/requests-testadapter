@@ -34,9 +34,10 @@ You can also specify a ``headers`` dictionary as a keyword argument to
 TestSession
 ~~~~~~~~~~~
 
-In ``requests`` 1.2 and older, the order of mounted adapters is unpredictable.
-To make sure you can mount arbitrary paths with their own respective adapters,
-use ``TestSession`` which always matches the longest prefix::
+In ``requests`` 1.2.0 and older, the order of mounted adapters is
+unpredictable.  To make sure you can mount arbitrary paths with their own
+respective adapters, use ``TestSession`` which always matches the longest
+prefix::
 
   >>> from requests_testadapter import TestAdapter, TestSession
   >>> s = TestSession()
@@ -115,6 +116,11 @@ can run tests on all of them by using tox::
 Change Log
 ----------
 
+0.3.0
+~~~~~
+
+* fixed a compatibility problem with ``requests`` 1.2.1+
+
 0.2.0
 ~~~~~
 
@@ -124,7 +130,7 @@ Change Log
 * ``TestAdapter`` doesn't prefetch ``response.content`` anymore if
   ``stream=True`` is passed to a request. This lets the user read
   ``response.raw`` herself.
-  
+
 0.1.0
 ~~~~~
 
@@ -133,4 +139,5 @@ Change Log
 Authors
 -------
 
-Glued together by `Łukasz Langa <mailto:lukasz@langa.pl>`_.
+Glued together by `Łukasz Langa <mailto:lukasz@langa.pl>`_. Additional fixes by
+Luke Sneeringer.
