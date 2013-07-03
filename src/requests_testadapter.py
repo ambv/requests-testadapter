@@ -57,6 +57,9 @@ class Resp(BytesIO):
     def msg(self):
         return self
 
+    def read(self, chunk_size, **kwargs):
+        return super().read(chunk_size)
+
     def info(self):
         return self
 
