@@ -1,0 +1,10 @@
+# Python
+*.pyc
+*.egg-info/
+__pycache__/
+
+# Mac
+.DS_Store
+
+# Testing
+.tox/
